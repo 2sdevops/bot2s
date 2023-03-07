@@ -1,0 +1,166 @@
+
+const { BotkitConversation } = require('botkit');
+
+const f = require('../Functions/guest');
+
+
+
+
+module.exports = function (controller) {
+
+    const convo = new BotkitConversation( 'guest_chat', controller );
+    
+    controller.addDialog( convo )
+
+    
+
+    controller.hears( ['2', 'guest'], 'message,direct_message', async ( bot, message ) => {
+        
+        console.log(controller.public_url)
+        await bot.reply( message, {
+            text: 'Guest',
+            attachments: [
+                {
+                    'contentType': 'application/vnd.microsoft.card.adaptive',
+                    'content': {
+                        'type': 'AdaptiveCard',
+                        'version': '1.3',
+                        "body": [
+                            {
+                                "type": "ColumnSet",
+                                "columns": [
+                                    {
+                                        "type": "Column",
+                                        "width": "stretch",
+                                        "items": [
+                                            {
+                                                "type": "TextBlock",
+                                                "text": "Olá,",
+                                                "weight": "Lighter",
+                                                "color": "Accent",
+                                                "size": "Medium",
+                                                "spacing": "None"
+                                            },
+                                            {
+                                                "type": "TextBlock",
+                                                "weight": "Bolder",
+                                                "text": "Bem vindo(a)                             \n             à 2S!",
+                                                "horizontalAlignment": "Left",
+                                                "wrap": true,
+                                                "color": "Accent",
+                                                "size": "ExtraLarge",
+                                                "spacing": "None"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "type": "Column",
+                                        "width": "stretch",
+                                        "items": [
+                                            {
+                                                "type": "Image",
+                                                "url": `${controller.public_url}/www/2s_logo.png`,
+                                                "size": "Medium",
+                                                "horizontalAlignment": "Right"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "Preencha os campos para gerarmos um login e senha para acesso à rede wi-fi:",
+                                "wrap": true,
+                                "fontType": "Default",
+                                "size": "Default",
+                                "weight": "Default",
+                                "color": "Dark",
+                                "spacing": "ExtraLarge"
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "Nome:",
+                                "wrap": true
+                            },
+                            {
+                                "type": "Input.Text",
+                                "placeholder": "Digite seu nome",
+                                "spacing": "None",
+                                "id": "nome",
+                                "isRequired": true
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "E-mail:",
+                                "wrap": true
+                            },
+                            {
+                                "type": "Input.Text",
+                                "placeholder": "Insira seu melhor e-mail",
+                                "spacing": "None",
+                                "id": "email",
+                                "isRequired": true
+                            },
+                            {
+                                "type": "TextBlock",
+                                "text": "Celular:",
+                                "wrap": true
+                            },
+                            {
+                                "type": "Input.Text",
+                                "spacing": "None",
+                                "placeholder": "ex: (00) 00000-0000",
+                                "style": "Tel",
+                                "id": "celular"
+                            },
+                            {
+                                "type": "Input.Toggle",
+                                "title": "Termos e Condições",
+                                "spacing": "ExtraLarge",
+                                "id": "submit"
+                            },
+                            {
+                                "type": "ActionSet",
+                                "actions": [
+                                    {
+                                        "type": "Action.Submit",
+                                        "data": {
+                                            "subscribe": true
+                                        },
+                                        "title": "Pronto!",
+                                        "style": "positive"
+                                    }
+                                ],
+                                "horizontalAlignment": "Left",
+                                "spacing": "None"
+                            }
+                        ],
+                        '$schema': 'http://adaptivecards.io/schemas/adaptive-card.json',
+                        "version": "1.3",
+                        
+                        
+                    }
+                }
+            ]
+        })
+
+
+    })
+
+    controller.on( 'attachmentActions', async ( bot, message ) => {
+
+        let hostName = message.value.email;
+
+        await bot.reply( message, {
+            text: await f.guest_main(hostName),
+        })
+    })
+
+    
+
+    controller.commandHelp.push( { command: '2 - Rede guest', text: ' Criar usuario na rede guest' } );
+
+    
+
+}
+

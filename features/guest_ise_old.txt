@@ -1,0 +1,34 @@
+
+const { BotkitConversation } = require('botkit');
+
+const f = require('../Functions/guest');
+
+
+
+
+module.exports = function (controller) {
+
+    const convo = new BotkitConversation( 'guest_chat', controller );
+    
+    controller.addDialog( convo )
+
+    convo.ask('Por favor informe o email do novo usuario da rede guest?',
+     async(response, convo, bot, full_message) => {
+        
+        await bot.say(await f.guest_main(response));
+        }, {key: 'name'});
+
+    
+    
+
+    controller.hears( ['2', 'guest'], 'message,direct_message', async ( bot, message ) => {
+
+        await bot.beginDialog( 'guest_chat' );
+    });
+
+    controller.commandHelp.push( { command: '2 - Rede guest', text: ' criar usuario na rede guest' } );
+
+    
+
+}
+
