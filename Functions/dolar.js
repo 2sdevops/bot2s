@@ -14,7 +14,7 @@ async function dolar(){
         var response = await axios.get(`https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda=%27USD%27&@dataCotacao=%27${dataFormatada}%27&$top=100&$format=json&$select=cotacaoCompra,cotacaoVenda,dataHoraCotacao,tipoBoletim`)
         const lista = response.data.value
         const ultimacotacao = lista[lista.length - 1]; // Acessando o objeto de cotações do primeiro boletim
-        valor_dolar = `Cotacao de venda: ${ultimacotacao.cotacaoVenda}`;
+        valor_dolar = `Dolar EUA PTAX - Venda: ${ultimacotacao.cotacaoVenda}`;
         console.log(valor_dolar); // Imprimindo o valor da última cotação de compra do dólar
         
         
