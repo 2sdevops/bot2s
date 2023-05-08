@@ -8,7 +8,7 @@ var axios = require("axios")
 async function dolar(){
     let valor_dolar
     const hoje = new Date();
-    const dataFormatada = format(hoje, 'dd-MM-yyyy');
+    const dataFormatada = format(hoje, 'MM-dd-yyyy');
     
     try{
         var response = await axios.get(`https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda=%27USD%27&@dataCotacao=%27${dataFormatada}%27&$top=100&$format=json&$select=cotacaoCompra,cotacaoVenda,dataHoraCotacao,tipoBoletim`)
