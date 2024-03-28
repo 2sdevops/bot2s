@@ -1,14 +1,6 @@
 module.exports = { guest_main }
 
-const axios = require('axios');
-var data = new Date();
-
-var diaAMais = new Date();
-diaAMais.setDate(diaAMais.getDate() + 1);
-    
-var strfromDate = (data.getMonth() + 1) + '/' + data.getDate() + '/' + data.getFullYear() + ' ' + data.getHours() + ':' + data.getMinutes();
-var strtoDate = (data.getMonth() + 1) + '/' + (data.getDate() + 1) + '/' + data.getFullYear() + ' 23:00';   
-
+const axios = require('axios')
 
 async function verifica_usuario(username){
   let retorno;
@@ -28,6 +20,7 @@ async function verifica_usuario(username){
         
     })
     .catch(error => {
+      console.log(error)
         retorno = 'false'
         
     })
@@ -37,7 +30,17 @@ async function verifica_usuario(username){
 
 
 
+
+
 async function atualiza_guest(username){
+
+  var data = new Date();
+
+  var diaAMais = new Date();
+  diaAMais.setDate(diaAMais.getDate() + 1);
+      
+  var strfromDate = (data.getMonth() + 1) + '/' + data.getDate() + '/' + data.getFullYear() + ' ' + data.getHours() + ':' + data.getMinutes();
+  var strtoDate = (data.getMonth() + 1) + '/' + (data.getDate() + 1) + '/' + data.getFullYear() + ' 23:00';  
   let retorno;
 
   var dados = {
@@ -85,6 +88,14 @@ async function atualiza_guest(username){
 
 
 async function cria_guest(username){
+
+  var data = new Date();
+
+  var diaAMais = new Date();
+  diaAMais.setDate(diaAMais.getDate() + 1);
+      
+  var strfromDate = (data.getMonth() + 1) + '/' + data.getDate() + '/' + data.getFullYear() + ' ' + data.getHours() + ':' + data.getMinutes();
+  var strtoDate = (data.getMonth() + 1) + '/' + (data.getDate() + 1) + '/' + data.getFullYear() + ' 23:00';   
   let retorno
 
     var dados = {
@@ -118,11 +129,13 @@ async function cria_guest(username){
         },
     })
     .then(response => {
+      console.log(response)
       retorno = 'true'
         
         
     })
     .catch(error => {
+      console.log(error)
       retorno = 'false'
         console.log(error.response.data.ERSResponse)
         
@@ -169,12 +182,14 @@ async function guest_main(username){
         }
           else {
             let senha = await password_guest(username)
+            console.log(retorno)
             retorno = `Usuario: ${username} \n\nSenha: ${senha}`
         }
       
     }
     return retorno
 }
+
 
 
 
