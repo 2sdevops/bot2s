@@ -35,12 +35,19 @@ async function verifica_usuario(username){
 async function atualiza_guest(username){
 
   var data = new Date();
+<<<<<<< HEAD
 
+=======
+>>>>>>> d0f5e14cdc7cdd973b1f4f37963cf6a0a0225b57
   var diaAMais = new Date();
   diaAMais.setDate(diaAMais.getDate() + 1);
       
   var strfromDate = (data.getMonth() + 1) + '/' + data.getDate() + '/' + data.getFullYear() + ' ' + data.getHours() + ':' + data.getMinutes();
+<<<<<<< HEAD
   var strtoDate = (data.getMonth() + 1) + '/' + (data.getDate() + 1) + '/' + data.getFullYear() + ' 23:00';  
+=======
+  var strtoDate = (data.getMonth() + 1) + '/' + (data.getDate() + 1) + '/' + data.getFullYear() + ' 23:00';   
+>>>>>>> d0f5e14cdc7cdd973b1f4f37963cf6a0a0225b57
   let retorno;
 
   var dados = {
@@ -88,9 +95,13 @@ async function atualiza_guest(username){
 
 
 async function cria_guest(username){
+<<<<<<< HEAD
 
   var data = new Date();
 
+=======
+  var data = new Date();
+>>>>>>> d0f5e14cdc7cdd973b1f4f37963cf6a0a0225b57
   var diaAMais = new Date();
   diaAMais.setDate(diaAMais.getDate() + 1);
       
